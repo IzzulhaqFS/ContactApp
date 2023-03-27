@@ -49,5 +49,11 @@ namespace ContactApp.ViewModels
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
         }
+
+        [RelayCommand]
+        async Task GoToAddNewContact()
+        {
+            await Shell.Current.GoToAsync(nameof(ContactDetailPage));
+        }
     }
 }
