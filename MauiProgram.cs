@@ -1,4 +1,6 @@
 ﻿using ContactApp.Repositories;
+using ContactApp.ViewModels;
+using ContactApp.Views;
 using Microsoft.Extensions.Logging;
 
 namespace ContactApp;
@@ -17,8 +19,9 @@ public static class MauiProgram
 			});
 
 		string dbPath = FileAccessHelper.GetLocalFilePath("contact.db3");
-		builder.Services.AddSingleton<ContactRepository>(s => ActivatorUtilities.CreateInstance<ContactRepository>(s, dbPath));
-
+		builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<ContactRepository>(s, dbPath));
+		builder.Services.AddSingleton<ContactsPageViewModel>();
+		builder.Services.AddSingleton<ContactsPage>();
 
         return builder.Build();
 	}

@@ -2,11 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContactApp.Views.ContactsPage"
+             xmlns:viewmodel="clr-namespace:ContactApp.ViewModels"
+             x:DataType="viewmodel:ContactsPageViewModel"
              Title="ContactsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
+        <CollectionView Margin="30,20,30,30"
+                        ItemsSource="{Binding Contacts}"
+                        SelectedItem="{Binding SelectedContact, Mode=TwoWay}"
+                        SelectionChangedCommand="{Binding GoToDetailsCommand}"
+                        SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Padding="15,10" Margin="10,5,10,5">
+                        <Label Text="{Binding ContactName}" FontSize="20" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Text="Add Contact"
+                Margin="20,10,20,10"
+                Command="{Binding AddNewContactCommand}" />
+    </Grid>
+    
 </ContentPage>
